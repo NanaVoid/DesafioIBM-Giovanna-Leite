@@ -6,11 +6,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-extrato',
   templateUrl: './extrato.component.html',
   styleUrls: ['./extrato.component.css'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    CommonModule
-  ],
 })
 export class ExtratoComponent {
   conta = {
