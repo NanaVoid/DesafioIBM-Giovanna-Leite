@@ -2,7 +2,7 @@
   <h1>Consultar Extrato</h1>
   <p class="description">Digite os dados abaixo para verificar o extrato de sua conta.</p>
 
-  <!-- Formulário para verificar os dados do cliente -->
+
   <div class="form-container">
     <form (ngSubmit)="verificarConta()">
       <div>
@@ -21,9 +21,10 @@
     </form>
   </div>
 
-  <!-- Exibir o saldo após a validação -->
+
   <div *ngIf="exibirSaldo" class="saldo-container">
     <h2>Saldo Total</h2>
     <p class="saldo">R$ {{ saldo | number: '1.2-2' }}</p>
   </div>
 </div>
+

@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 @Component({
-  selector: 'app-extrato',
-  templateUrl: './extrato.component.html',
-  styleUrls: ['./extrato.component.css']
+  selector: 'app-transacoes',
+  templateUrl: './transacoes.component.html',
+  styleUrls: ['./transacoes.component.css'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    CommonModule
+  ],
 })
-export class ExtratoComponent {
+export class TransacoesComponent {
   conta = {
     numeroConta: '',
     nome: '',
@@ -14,6 +21,8 @@ export class ExtratoComponent {
 
   saldo: number | null = null;
   exibirSaldo = false;
+  operacao: 'credito' | 'debito' | null = null;
+  valorTransacao: number = 0;
 
   // Dados simulados de clientes
   clientes = [
@@ -22,7 +31,6 @@ export class ExtratoComponent {
   ];
 
   verificarConta() {
-    // Procurar um cliente que corresponda aos dados fornecidos
     const cliente = this.clientes.find(cliente =>
       cliente.numeroConta === this.conta.numeroConta &&
       cliente.nome === this.conta.nome &&
@@ -36,6 +44,22 @@ export class ExtratoComponent {
       alert('Dados incorretos! Não foi possível verificar a conta.');
       this.saldo = null;
       this.exibirSaldo = false;
+    }
+  }
+
+  realizarTransacao() {
+    if (this.operacao && this.saldo !== null) {
+      if (this.operacao === 'credito') {
+        this.saldo += this.valorTransacao;
+      } else if (this.operacao === 'debito') {
+        if (this.saldo >= this.valorTransacao) {
+          this.saldo -= this.valorTransacao;
+        } else {
+          alert('Saldo insuficiente para débito!');
+          return;
+        }
+      }
+      alert(`Transação de ${this.operacao} realizada com sucesso!`);
     }
   }
 }

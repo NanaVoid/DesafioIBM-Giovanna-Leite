@@ -1,0 +1,70 @@
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #CC092F;
+}
+
+.description {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-container, .transacao-container {
+  margin-bottom: 20px;
+}
+
+form div, .transacao-container div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.main-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #CC092F;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.main-button:hover {
+  background-color: #a60b25;
+}
+
+.saldo-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.saldo {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
