@@ -6,11 +6,7 @@ import {CommonModule} from '@angular/common';
   selector: 'app-transacoes',
   templateUrl: './transacoes.component.html',
   styleUrls: ['./transacoes.component.css'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    CommonModule
-  ],
+
 })
 export class TransacoesComponent {
   conta = {
