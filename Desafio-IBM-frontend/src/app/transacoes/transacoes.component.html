@@ -2,12 +2,12 @@
   <h1>Transações</h1>
   <p class="description">Digite os dados abaixo para verificar a conta e realizar uma transação.</p>
 
-  <!-- Formulário para verificar os dados do cliente -->
+
   <div class="form-container">
     <form (ngSubmit)="verificarConta()">
       <div>
         <label for="numeroConta">Número da Conta:</label>
-        <input type="text" id="numeroConta" [(ngModel)]="conta.numeroConta" name="numeroConta" required>
+        <input type="text" id="numeroConta" [(ngModel)]="conta.numeroConta" name="numeroConta" required maxlength="7">
       </div>
       <div>
         <label for="nome">Nome:</label>
@@ -41,4 +41,5 @@
 
     <button (click)="realizarTransacao()" class="main-button">Realizar Transação</button>
   </div>
+
 </div>

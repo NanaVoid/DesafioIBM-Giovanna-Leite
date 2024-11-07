@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { TransacoesService } from '../services/transacoes.service';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-transacoes',
   templateUrl: './transacoes.component.html',
   styleUrls: ['./transacoes.component.css'],
-  standalone: true,  // Torna o componente standalone
-  imports: [CommonModule, FormsModule]  // Importa os módulos necessários diretamente
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class TransacoesComponent {
   conta = {
@@ -21,42 +21,42 @@ export class TransacoesComponent {
   operacao: 'credito' | 'debito' | null = null;
   valorTransacao: number = 0;
 
-  // Dados simulados de clientes
-  clientes = [
-    { numeroConta: '12345', nome: 'Giovanna Leite', email: 'giovanna@exemplo.com', saldo: 1500.75 },
-    { numeroConta: '67890', nome: 'João Silva', email: 'joao@exemplo.com', saldo: 3200.40 }
-  ];
+  constructor(private transacoesService: TransacoesService) {}
 
   verificarConta() {
-    const cliente = this.clientes.find(cliente =>
-      cliente.numeroConta === this.conta.numeroConta &&
-      cliente.nome === this.conta.nome &&
-      cliente.email === this.conta.email
-    );
+    this.transacoesService.verificarDadosCliente(this.conta.numeroConta, this.conta.email, this.conta.nome)
+      .subscribe({
+        next: (isValid) => {
+          if (isValid) {
 
-    if (cliente) {
-      this.saldo = cliente.saldo;
-      this.exibirSaldo = true;
-    } else {
-      alert('Dados incorretos! Não foi possível verificar a conta.');
-      this.saldo = null;
-      this.exibirSaldo = false;
-    }
+            this.transacoesService.saldo(this.conta.numeroConta).subscribe(saldo => {
+              this.saldo = saldo;
+              this.exibirSaldo = true;
+            });
+          } else {
+            alert('Dados incorretos! Não foi possível verificar a conta.');
+            this.saldo = null;
+            this.exibirSaldo = false;
+          }
+        },
+        error: () => {
+          alert('Erro ao verificar os dados!');
+        }
+      });
   }
 
   realizarTransacao() {
     if (this.operacao && this.saldo !== null) {
-      if (this.operacao === 'credito') {
-        this.saldo += this.valorTransacao;
-      } else if (this.operacao === 'debito') {
-        if (this.saldo >= this.valorTransacao) {
-          this.saldo -= this.valorTransacao;
-        } else {
-          alert('Saldo insuficiente para débito!');
-          return;
-        }
-      }
-      alert(`Transação de ${this.operacao} realizada com sucesso!`);
+      this.transacoesService.fazerTransacao(this.conta.numeroConta, this.valorTransacao, this.operacao)
+        .subscribe({
+          next: () => {
+            alert(`Transação de ${this.operacao} realizada com sucesso!`);
+            this.saldo = (this.saldo ?? 0) + (this.operacao === 'credito' ? this.valorTransacao : -this.valorTransacao);
+          },
+          error: () => {
+            alert('Erro ao realizar transação!');
+          }
+        });
     }
   }
 }

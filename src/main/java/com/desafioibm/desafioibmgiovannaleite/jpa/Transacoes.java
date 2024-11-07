@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-public class TransacoesBancarias {
+public class Transacoes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class TransacoesBancarias {
     private String numeroConta;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "numeroConta", referencedColumnName = "numeroConta", insertable = false, updatable = false)
     private Clientes clientes;
 
     public Long getId() {
