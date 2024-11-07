@@ -30,7 +30,16 @@ public class TransacoesService {
                 transacoes.setClientes(clientes);
                 transacoes.setNumeroConta(numeroConta);
                 transacoes.setValor(valor);
-                transacoes.setTipo(tipo.equals("CD") ? TipoTransacaoEnum.CD : TipoTransacaoEnum.DB);
+
+                if (tipo.equalsIgnoreCase("credito")) {
+                    transacoes.setTipo(TipoTransacaoEnum.CD);
+                } else if (tipo.equalsIgnoreCase("debito")) {
+                    transacoes.setTipo(TipoTransacaoEnum.DB);
+                } else {
+
+                    throw new IllegalArgumentException("Tipo de transação inválido: " + tipo);
+                }
+
                 return transacoesRepository.save(transacoes);
             } else {
                 return null;
@@ -38,6 +47,7 @@ public class TransacoesService {
         }
         return null;
     }
+
 
 
     public boolean verificarDadosCliente(String numeroConta, String email, String nome) {
