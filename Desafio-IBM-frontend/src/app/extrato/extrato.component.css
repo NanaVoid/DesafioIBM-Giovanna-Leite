@@ -67,3 +67,34 @@ input[type="number"] {
   color: #333;
   font-weight: bold;
 }
+.extrato-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.extrato-table th, .extrato-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.extrato-table th {
+  background-color: #f4f4f4;
+}
+
+.extrato-container {
+  margin-top: 20px;
+}
+
+.sem-transacoes {
+  margin-top: 20px;
+  font-style: italic;
+  color: #777;
+}
+
+.error-message {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}

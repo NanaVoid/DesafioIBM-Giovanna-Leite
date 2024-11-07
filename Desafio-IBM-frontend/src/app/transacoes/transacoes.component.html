@@ -2,7 +2,6 @@
   <h1>Transações</h1>
   <p class="description">Digite os dados abaixo para verificar a conta e realizar uma transação.</p>
 
-
   <div class="form-container">
     <form (ngSubmit)="verificarConta()">
       <div>
@@ -18,9 +17,13 @@
         <input type="email" id="email" [(ngModel)]="conta.email" name="email" required>
       </div>
       <button type="submit" class="main-button">Verificar Conta</button>
+
+
+      <div *ngIf="erro" class="error-message">
+        <p style="color: red;">{{ erro }}</p>
+      </div>
     </form>
   </div>
-
 
   <div *ngIf="exibirSaldo" class="transacao-container">
     <h2>Saldo Atual: R$ {{ saldo | number: '1.2-2' }}</h2>
@@ -40,6 +43,11 @@
     </div>
 
     <button (click)="realizarTransacao()" class="main-button">Realizar Transação</button>
+
+
+    <div *ngIf="erro" class="error-message">
+      <p style="color: red;">{{ erro }}</p>
+    </div>
   </div>
 
 </div>

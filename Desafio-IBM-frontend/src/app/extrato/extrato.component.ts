@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ExtratoService } from '../services/extrato.service';
 
 @Component({
   selector: 'app-extrato',
@@ -18,26 +19,58 @@ export class ExtratoComponent {
 
   saldo: number | null = null;
   exibirSaldo = false;
+  transacoes: any[] = [];
+  erro: string = '';
 
-  clientes = [
-    { numeroConta: '12345', nome: 'Giovanna Leite', email: 'giovanna@exemplo.com', saldo: 1500.75 },
-    { numeroConta: '67890', nome: 'João Silva', email: 'joao@exemplo.com', saldo: 3200.40 }
-  ];
+  constructor(private extratoService: ExtratoService) {}
 
   verificarConta() {
-    const cliente = this.clientes.find(cliente =>
-      cliente.numeroConta === this.conta.numeroConta &&
-      cliente.nome === this.conta.nome &&
-      cliente.email === this.conta.email
+
+    if (!this.conta.numeroConta || !this.conta.nome || !this.conta.email) {
+      this.erro = 'Todos os campos são obrigatórios!';
+      return;
+    } else {
+      this.erro = '';
+    }
+
+    this.extratoService.verificarDadosCliente(this.conta.numeroConta, this.conta.email, this.conta.nome)
+      .subscribe({
+        next: (isValid) => {
+          if (isValid) {
+            this.carregarSaldoETransacoes(this.conta.numeroConta);
+          } else {
+            this.erro = 'Dados incorretos! Não foi possível verificar a conta.';
+            this.saldo = null;
+            this.transacoes = [];
+            this.exibirSaldo = false;
+          }
+        },
+        error: () => {
+          this.erro = 'Erro ao verificar os dados!';
+        }
+      });
+  }
+
+  carregarSaldoETransacoes(numeroConta: string) {
+    this.extratoService.saldo(numeroConta).subscribe(
+      (saldo) => {
+        this.saldo = saldo;
+        this.exibirSaldo = true;
+      },
+      (error) => {
+        this.erro = 'Erro ao carregar o saldo!';
+        console.error(error);
+      }
     );
 
-    if (cliente) {
-      this.saldo = cliente.saldo;
-      this.exibirSaldo = true;
-    } else {
-      alert('Dados incorretos! Não foi possível verificar a conta.');
-      this.saldo = null;
-      this.exibirSaldo = false;
-    }
+    this.extratoService.getTransacoesPorConta(numeroConta).subscribe(
+      (transacoes) => {
+        this.transacoes = transacoes;
+      },
+      (error) => {
+        this.erro = 'Erro ao carregar as transações!';
+        console.error(error);
+      }
+    );
   }
 }

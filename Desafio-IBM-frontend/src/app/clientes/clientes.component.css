@@ -49,5 +49,6 @@ input[type="number"] {
 
 .alert {
   margin-top: 10px;
-  font-weight: bolder;
+  text-align: center;
+  font-weight: bold;
 }

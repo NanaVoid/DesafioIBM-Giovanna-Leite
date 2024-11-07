@@ -20,7 +20,6 @@ public class TransacoesController {
     @Autowired
     private ClientesService clientesService;
 
-
     @PostMapping
     public Transacoes fazerTransacao(@RequestParam String numeroConta,
                                      @RequestParam BigDecimal valor,
@@ -28,12 +27,10 @@ public class TransacoesController {
         return transacoesService.fazerTransacao(numeroConta, valor, tipo);
     }
 
-
     @GetMapping("/saldo/{numeroConta}")
     public BigDecimal saldo(@PathVariable String numeroConta) {
         return transacoesService.calcularSaldoConta(numeroConta);
     }
-
 
     @GetMapping("/verificar-dados")
     public boolean verificarDados(@RequestParam String numeroConta,
@@ -41,5 +38,5 @@ public class TransacoesController {
                                   @RequestParam String nome) {
         return transacoesService.verificarDadosCliente(numeroConta, email, nome);
     }
-}
 
+}

@@ -73,3 +73,9 @@ select {
   margin-top: 10px;
   font-weight: bolder;
 }
+
+.error-message {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}
