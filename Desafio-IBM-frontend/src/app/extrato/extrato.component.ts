@@ -3,6 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ExtratoService } from '../services/extrato.service';
 
+
+interface Extrato {
+  tipo: string;
+  valor: number;
+  data: string;
+  numeroConta: string;
+}
+
 @Component({
   selector: 'app-extrato',
   templateUrl: './extrato.component.html',
@@ -19,13 +27,12 @@ export class ExtratoComponent {
 
   saldo: number | null = null;
   exibirSaldo = false;
-  transacoes: any[] = [];
+  transacoes: Extrato[] = [];
   erro: string = '';
 
   constructor(private extratoService: ExtratoService) {}
 
   verificarConta() {
-
     if (!this.conta.numeroConta || !this.conta.nome || !this.conta.email) {
       this.erro = 'Todos os campos são obrigatórios!';
       return;
@@ -64,8 +71,16 @@ export class ExtratoComponent {
     );
 
     this.extratoService.getTransacoesPorConta(numeroConta).subscribe(
-      (transacoes) => {
-        this.transacoes = transacoes;
+      (transacoes: Extrato[]) => {
+        this.transacoes = transacoes.map((transacao: Extrato) => {
+
+          if (transacao.tipo === 'CD') {
+            transacao.tipo = 'Crédito';
+          } else if (transacao.tipo === 'DB') {
+            transacao.tipo = 'Débito';
+          }
+          return transacao;
+        });
       },
       (error) => {
         this.erro = 'Erro ao carregar as transações!';
