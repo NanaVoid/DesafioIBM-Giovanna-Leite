@@ -23,6 +23,16 @@ export class ClientesComponent {
     this.sucessoMensagem = '';
     this.erroMensagem = '';
 
+    if (!this.cliente.numeroConta || this.cliente.numeroConta.length !== 7) {
+      this.erroMensagem = 'O número da conta deve ter 7 caracteres.';
+      return;
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!this.cliente.email || !emailRegex.test(this.cliente.email)) {
+      this.erroMensagem = 'O formato do email é inválido.';
+      return;
+    }
 
     this.clientesService.cadastrarCliente(this.cliente).subscribe({
       next: (response) => {
