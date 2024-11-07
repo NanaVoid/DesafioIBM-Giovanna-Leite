@@ -1,27 +1,42 @@
-<div class="cadastro-cliente-container">
-  <h2>Cadastro de Clientes</h2>
+<div class="container">
+  <h2>Cadastro de Cliente</h2>
 
-  <form (ngSubmit)="criarConta()">
-    <div>
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" [(ngModel)]="cliente.nome" name="nome" required />
+
+  <div *ngIf="sucessoMensagem" class="alert alert-success">
+    {{ sucessoMensagem }}
+  </div>
+
+
+  <div *ngIf="erroMensagem" class="alert alert-danger">
+    {{ erroMensagem }}
+  </div>
+
+  <form (ngSubmit)="cadastrarCliente()">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input id="nome" [(ngModel)]="cliente.nome" name="nome" type="text" class="form-control" required />
     </div>
 
-    <div>
-      <label for="idade">Idade:</label>
-      <input type="number" id="idade" [(ngModel)]="cliente.idade" name="idade" required />
+    <div class="form-group">
+      <label for="idade">Idade</label>
+      <input id="idade" [(ngModel)]="cliente.idade" name="idade" type="number" class="form-control" required />
     </div>
 
-    <div>
-      <label for="email">Endereço de Email:</label>
-      <input type="email" id="email" [(ngModel)]="cliente.email" name="email" required />
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" [(ngModel)]="cliente.email" name="email" type="email" class="form-control" required />
     </div>
 
-    <div>
-      <label for="numeroConta">Número da Conta:</label>
-      <input type="text" id="numeroConta" [(ngModel)]="cliente.numeroConta" name="numeroConta" required />
+    <div class="form-group">
+      <label for="numeroConta">Número da Conta</label>
+      <input id="numeroConta" [(ngModel)]="cliente.numeroConta" name="numeroConta" type="text" class="form-control" required maxlength="7"/>
     </div>
 
-    <button type="submit" class="criar-conta-btn">Criar Conta</button>
+    <div class="form-group">
+      <label for="endereco">Endereço</label>
+      <input id="endereco" [(ngModel)]="cliente.endereco" name="endereco" type="text" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
   </form>
 </div>

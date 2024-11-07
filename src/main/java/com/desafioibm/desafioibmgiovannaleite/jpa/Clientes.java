@@ -10,6 +10,16 @@ public class Clientes {
     private Long id;
     private String nome;
     private int idade;
+    private String endereco;
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
     private String email;
     @Column(length = 7, unique = true, nullable = false)
     private String numeroConta;

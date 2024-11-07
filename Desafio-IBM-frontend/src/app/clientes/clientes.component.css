@@ -46,3 +46,7 @@ input[type="number"] {
 .criar-conta-btn:hover {
   background-color: #a60b25;
 }
+
+.alert {
+  margin-top: 10px;
+}
