@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-transacoes',
   templateUrl: './transacoes.component.html',
   styleUrls: ['./transacoes.component.css'],
-
+  standalone: true,  // Torna o componente standalone
+  imports: [CommonModule, FormsModule]  // Importa os módulos necessários diretamente
 })
 export class TransacoesComponent {
   conta = {

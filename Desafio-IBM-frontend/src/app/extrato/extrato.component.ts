@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-extrato',
   templateUrl: './extrato.component.html',
   styleUrls: ['./extrato.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class ExtratoComponent {
   conta = {
@@ -23,7 +25,6 @@ export class ExtratoComponent {
   ];
 
   verificarConta() {
-
     const cliente = this.clientes.find(cliente =>
       cliente.numeroConta === this.conta.numeroConta &&
       cliente.nome === this.conta.nome &&
